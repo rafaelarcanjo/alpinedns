@@ -1,0 +1,24 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+key "hash.nomes.space" {
+	algorithm HMAC-MD5;
+	secret "bjCMHZcBGQVVMEFSfGkY/c6LTIfYLRsTFuFDnDdo7icNbAP2VS7sC18X9y01gcotS7PrfMgWRj5TLllIAas0WQ==";
+};
+
+zone "nomes.space" {
+	type master;
+	file "/var/cache/bind/zones/nomes.space.db";
+	allow-update { key hash.nomes.space; };
+	allow-query { any; };
+	allow-transfer { none; };
+};
+
+controls {
+        inet 127.0.0.1 allow { 127.0.0.1; } keys { hash.nomes.space; };
+}; 
